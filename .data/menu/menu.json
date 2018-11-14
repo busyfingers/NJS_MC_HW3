@@ -1,0 +1,14 @@
+{
+    "Large Pepperoni pizza": "$15",
+    "Large Cheese pizza": "$13",
+    "Large Veggie pizza": "$13",
+    "Medium Pepperoni pizza": "$12",
+    "Medium Cheese pizza": "$10",
+    "Medium Veggie pizza": "$10",
+    "Small Pepperoni pizza": "$7",
+    "Small Cheese pizza": "$7",
+    "Small Veggie pizza": "$7",
+    "Large soda": "$3",
+    "Medium soda": "$2",
+    "Small soda": "$1"
+}
