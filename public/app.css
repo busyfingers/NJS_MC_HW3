@@ -158,6 +158,18 @@ body.index .blurb{
   background-color: #c83737 !important;
 }
 
+.ctaSmall,a.ctaSmall:hover,a.ctaSmall:active,a.ctaSmall:visited,button.ctaSmall:hover,button.ctaSmall:active,button.ctaSmall:visited{
+  background-color: #5b5a5a;
+  color: #fff;
+  border-radius: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+  display: inline-block;
+  padding: 5px;
+  cursor: pointer;
+}
+
 .warning{
   font-style: italic;
   color: #c83737;
@@ -198,6 +210,34 @@ body.index .blurb{
   margin: 0 0 15px 0;
   text-align: center;
   border-color: #35c06d;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.addSuccess{
+  display: none;
+  background-color: #217844;
+  font-style: italic;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin: 0 0 15px 0;
+  text-align: center;
+  border-color: #35c06d;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.addError{
+  display: none;
+  background-color: #c83737;
+  font-style: italic;
+  color: #fff;
+  padding: 10px 15px;
+  border-radius: 5px;
+  margin: 0 0 15px 0;
+  text-align: center;
+  border-color: #d87070;
   border-width: 2px;
   border-style: solid;
 }
@@ -268,26 +308,94 @@ td{
   padding: 5px;
 }
 
-td a, td a:hover, td a:active{
+td a, td a:active {
+  text-decoration: none;
+  cursor: pointer;
+}
+td a:hover{
   color: #2e5fa8;
   text-decoration: underline;
   cursor: pointer;
 }
 
+table.narrowTable {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.textContent {
+  margin: auto;
+  width: 50%;
+  font-size: 14px;
+  padding: 10px;
+}
+
+.center {
+  text-align: center;
+}
+
+.emphasis {
+  font-weight: bold;
+  font-size: 16px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #000;
+}
+
 /* Page specific styles for dashboard */
 
-#noChecksMessage td{
+#noOrdersMessage td{
   text-align: center;
   font-style: italic;
   font-size: 20px;
   padding: 20px;
 }
 
-#noChecksMessage{
+#noOrdersMessage{
   display: none;
 }
 
 #createCheckCTA{
   margin-top: 40px;
   display: none;
+}
+
+#noCartItemsMessage td{
+  text-align: center;
+  font-style: italic;
+  font-size: 20px;
+  padding: 20px;
+}
+
+#noCartItemsMessage{
+  display: none;
+}
+
+#cartTotalAmount{
+  font-size: 14px;
+  padding: 10px;
+}
+
+#createOrderCTA {
+  margin-top: 40px;
+  display: none;
+}
+
+#goToMenuCTA {
+  margin-top: 40px;
+  display: none;
+}
+
+#retryPaymentCTA {
+  margin-top: 40px;
+  display: none;
+}
+
+#paymentFailedMessage {
+  display: none;
+  text-align: center;
+  font-style: italic;
+  font-size: 20px;
+  padding: 20px;
 }
