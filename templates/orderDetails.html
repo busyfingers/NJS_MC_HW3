@@ -1,0 +1,60 @@
+<h1>Order details</h1>
+
+<h2>Items</h2>
+<table id="orderItemsTable" class="narrowTable">
+    <tr>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Amount</th>
+    </tr>
+</table>
+
+<h2>Deliver to</h2>
+<div class="formWrapper">
+    <form id="customerDetails" action="" method="">
+        <div class="inputWrapper">
+            <div class="inputLabel">Placed at</div>
+            <input class="disabled displayPlacedAtInput" type="text" name="placedAt" disabled />
+        </div>
+        <div class="inputWrapper">
+            <div class="inputLabel">E-mail</div>
+            <input class="disabled displayEmailInput" type="email" name="email" disabled />
+        </div>
+        <div class="inputWrapper">
+            <div class="inputLabel">Recipient</div>
+            <input class="disabled displayRecipientInput" type="text" name="firstName" placeholder="John" disabled />
+        </div>
+        <div class="inputWrapper">
+            <div class="inputLabel">Street Address</div>
+            <input class="disabled displayStreetAddressInput" type="text" name="streetAddress" placeholder="Main Street 123"
+                disabled />
+        </div>
+    </form>
+</div>
+
+<div id="paymentStatus" class="textContent center emphasis"></div>
+
+<div class="formWrapper">
+    <form id="paymentDetails" action="/api/orders" method="PUT">
+        <input type="hidden" name="_method" value="PUT"/>
+        <div class="formError"></div>
+        <div class="formSuccess">Your Changes Have Been Saved</div>
+        <input class="hiddenOrderId" type="hidden" name="uid" />
+        <input class="hiddenNewPaymentStatus" type="hidden" name="paymentStatus" value="Paid" />
+        <div class="inputWrapper">
+            <div class="inputLabel">Card Number</div>
+            <input class="cardNumberInput" type="number" name="cardNumber" placeholder="1234 1234 1234 1234" />
+        </div>
+        <div class="inputWrapper">
+            <div class="inputLabel">CVV</div>
+            <input class="cvvInput" type="password" name="number" placeholder="***" />
+        </div>
+        <div class="inputWrapper">
+            <div class="inputLabel">Expiration date</div>
+            <input class="expirationDateInput" type="date" name="expirationDateInput" placeholder="" />
+        </div>
+        <div class="inputWrapper ctaWrapper">
+            <button type="submit" class="cta green">Retry Payment</button>
+        </div>
+    </form>
+</div>

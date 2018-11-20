@@ -1,0 +1,64 @@
+<h1>Order summary</h1>
+
+<h2>Items</h2>
+<table id="cartViewTable" class="narrowTable">
+    <tr>
+        <th>Item</th>
+        <th>Quantity</th>
+        <th>Amount</th>
+    </tr>
+</table>
+
+<h2>Deliver to</h2>
+<div class="formWrapper">
+    <form id="customerDetails" action="" method="">
+        <div class="inputWrapper">
+            <div class="inputLabel">E-mail</div>
+            <input class="disabled displayEmailInput" type="email" name="email" disabled />
+        </div>
+        <div class="inputWrapper">
+            <div class="inputLabel">First Name</div>
+            <input class="disabled displayFirstNameInput" type="text" name="firstName" placeholder="John" disabled/>
+        </div>
+        <div class="inputWrapper">
+            <div class="inputLabel">Last Name</div>
+            <input class="disabled displayLastNameInput" type="text" name="lastName" placeholder="Smith" disabled/>
+        </div>
+        <div class="inputWrapper">
+            <div class="inputLabel">Street Address</div>
+            <input class="disabled displayStreetAddressInput" type="text" name="streetAddress" placeholder="Main Street 123" disabled/>
+        </div>
+    </form>
+</div>
+
+<h2>Payment information</h2>
+<div class="formWrapper">
+    <form id="paymentDetails" action="/api/orders" method="POST">
+        <div class="formError"></div>
+        <input class="hiddenCartId" type="hidden" name="cartId" />
+        <div class="inputWrapper">
+            <div class="inputLabel">Card Number</div>
+            <input class="cardNumberInput" type="number" name="cardNumber" placeholder="1234 1234 1234 1234" required/>
+        </div>
+        <div class="inputWrapper">
+            <div class="inputLabel">CVV</div>
+            <input class="cvvInput" type="password" name="cvv" placeholder="***" required/>
+        </div>
+        <div class="inputWrapper">
+            <div class="inputLabel">Expiration date</div>
+            <input class="expirationDateInput" type="date" name="expirationDateInput" placeholder="" required/>
+        </div>
+        <div class="inputWrapper ctaWrapper">
+            <button type="submit" class="cta green">Place Order</button>
+        </div>
+    </form>
+</div>
+
+<div id="paymentFailedMessage">
+    Payment was unsuccessful, please click to button below to open the order details and try again.
+</div>
+
+<div id="retryPaymentCTA" class="ctaWrapper">
+    <a id="retryPayment" class="cta green" href="#">Retry Payment</a>
+</div>
+      
