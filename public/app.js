@@ -438,7 +438,7 @@ app.setSessionToken = token => {
 };
 
 // Renew the token
-app.renewToken = callback => {
+app.renewToken = async () => {
     const currentToken = typeof (app.config.sessionToken) == "object" ? app.config.sessionToken : false;
     if (currentToken) {
         // Update the token with a new expiration
@@ -446,29 +446,27 @@ app.renewToken = callback => {
             "id": currentToken.id,
             "extend": true,
         };
-        app.client.request(undefined, "api/tokens", "PUT", undefined, payload, (statusCode, _) => {
+        const {statusCode, responsePayload} = await app.client.requestAsync(undefined, "api/tokens", "PUT", undefined, payload);
+        // Display an error on the form if needed
+        if (statusCode == 200) {
+            // Get the new token details
+            const queryStringObject = { "id": currentToken.id };
+            const {statusCode, responsePayload} = await app.client.requestAsync(undefined, "api/tokens", "GET", queryStringObject, undefined);
             // Display an error on the form if needed
             if (statusCode == 200) {
-                // Get the new token details
-                const queryStringObject = { "id": currentToken.id };
-                app.client.request(undefined, "api/tokens", "GET", queryStringObject, undefined, (statusCode, responsePayload) => {
-                    // Display an error on the form if needed
-                    if (statusCode == 200) {
-                        app.setSessionToken(responsePayload);
-                        callback(false);
-                    } else {
-                        app.setSessionToken(false);
-                        callback(true);
-                    }
-                });
+                app.setSessionToken(responsePayload);
+                return true;
             } else {
                 app.setSessionToken(false);
-                callback(true);
+                return false;
             }
-        });
+        } else {
+            app.setSessionToken(false);
+            return false;
+        }
     } else {
         app.setSessionToken(false);
-        callback(true);
+        return false;
     }
 };
 
@@ -708,31 +706,31 @@ app.loadMenuListPage = _ => {
     }
 
     // Get the email from the current token, or log the user out if none is there
-    var email = typeof (app.config.sessionToken.email) == "string" ? app.config.sessionToken.email : false;
+    const email = typeof (app.config.sessionToken.email) == "string" ? app.config.sessionToken.email : false;
     if (email) {
         // Fetch the user data
-        var queryStringObject = {
+        const queryStringObject = {
             "email": email
         };
         app.client.request(undefined, "api/users", "GET", queryStringObject, undefined, function (statusCode, responsePayload) {
             if (statusCode == 200) {
-                var cartId = typeof (responsePayload.cart) == "string" && responsePayload.cart.length > 0 ? responsePayload.cart : "";
+                const cartId = typeof (responsePayload.cart) == "string" && responsePayload.cart.length > 0 ? responsePayload.cart : "";
                 app.client.request(undefined, "api/menu", "GET", undefined, undefined, function (statusCode, responsePayload) {
                     if (statusCode == 200) {
                         // Make sure that the menu isn't empty
-                        var menuItems = typeof (responsePayload) == "object" ? responsePayload : {};
+                        const menuItems = typeof (responsePayload) == "object" ? responsePayload : {};
 
                         if (Object.keys(menuItems).length > 0) {
                             // Show each placed order as a new row in the table
-                            Object.keys(menuItems).forEach(function (itemName) {
+                            Object.keys(menuItems).forEach(itemName => {
                                 // Put each menu item into a single row
-                                var table = document.getElementById("menuListTable");
-                                var tr = table.insertRow(-1);
+                                const table = document.getElementById("menuListTable");
+                                const tr = table.insertRow(-1);
                                 tr.classList.add("menuRow");
-                                var td0 = tr.insertCell(0);
-                                var td1 = tr.insertCell(1);
-                                var td2 = tr.insertCell(2);
-                                var td3 = tr.insertCell(3);
+                                const td0 = tr.insertCell(0);
+                                const td1 = tr.insertCell(1);
+                                const td2 = tr.insertCell(2);
+                                const td3 = tr.insertCell(3);
                                 td0.innerHTML = itemName;
                                 td1.innerHTML = menuItems[itemName];
                                 td2.innerHTML = `<input id="MI${itemName.replace(/ /g, "")}" type="number" value="1"></input>`;
@@ -890,12 +888,11 @@ app.loadCartItems = function (cartId, displayButtons) {
 
 // Loop to renew token often
 app.tokenRenewalLoop = function () {
-    setInterval(function () {
-        app.renewToken(function (err) {
-            if (!err) {
-                console.log("Token renewed successfully @ " + Date.now());
-            }
-        });
+    setInterval(async _ => {
+        const renewed = await app.renewToken();
+        if (renewed) {
+            console.log("Token renewed successfully @ " + Date.now());
+        }
     }, 1000 * 60);
 };
 
