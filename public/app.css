@@ -356,11 +356,6 @@ table.narrowTable {
   display: none;
 }
 
-#createCheckCTA{
-  margin-top: 40px;
-  display: none;
-}
-
 #noCartItemsMessage td{
   text-align: center;
   font-style: italic;
@@ -369,6 +364,10 @@ table.narrowTable {
 }
 
 #noCartItemsMessage{
+  display: none;
+}
+
+#cartErrorMessage{
   display: none;
 }
 
