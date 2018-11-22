@@ -399,3 +399,7 @@ table.narrowTable {
   font-size: 20px;
   padding: 20px;
 }
+
+#loadingMessage {
+  display: none;
+}

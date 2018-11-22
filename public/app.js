@@ -240,9 +240,15 @@ app.bindForms = function () {
                 // If the method is DELETE, the payload should be a queryStringObject instead
                 const queryStringObject = method == "DELETE" ? payload : {};
 
+                // Display "loading" message if available
+                const loadingMessage = document.getElementById("loadingMessage");
+                if (loadingMessage) {
+                    loadingMessage.style.display = "block";
+                }
+
                 // Call the API
                 const { statusCode, responsePayload } = await app.client.requestAsync(undefined, path, method, queryStringObject, payload);
-                
+
                 // Display an error on the form if needed
                 if (statusCode !== 200) {
                     if (statusCode == 403) {
